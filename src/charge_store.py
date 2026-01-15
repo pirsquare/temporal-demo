@@ -4,7 +4,7 @@ This ensures that even if an activity retries or is re-executed,
 we never charge the same customer twice (critical for financial operations).
 """
 import sqlite3
-import os
+
 from datetime import datetime
 
 DB_PATH = "charge_store.db"

@@ -49,11 +49,9 @@ async def main():
     print(f"{'='*60}\n")
     
     # Start the workflow
-    handle = await client.start_workflow_class(
-        ChargeWorkflow,
-        customer_id,
-        amount,
-        wait_seconds,
+    handle = await client.start_workflow(
+        ChargeWorkflow.run,
+        args=(customer_id, amount, wait_seconds),
         id=workflow_id,
         task_queue="charge-queue",
     )

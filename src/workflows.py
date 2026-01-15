@@ -4,7 +4,7 @@ Workflows are replayed from history, not re-executed from the start.
 """
 from datetime import timedelta
 from temporalio import workflow
-from temporalio.common_pb2 import RetryPolicy
+from temporalio.common import RetryPolicy
 from .activities import charge_customer
 
 
@@ -48,7 +48,7 @@ class ChargeWorkflow:
         # Meanwhile, the idempotency key ensures we never actually charge twice
         retry_policy = RetryPolicy(
             maximum_attempts=3,  # Retry 3 times max
-            initial_interval={"seconds": 5},  # Wait 5 seconds before first retry
+            initial_interval=timedelta(seconds=5),  # Wait 5 seconds before first retry
             backoff_coefficient=2.0,  # Exponential backoff
         )
         

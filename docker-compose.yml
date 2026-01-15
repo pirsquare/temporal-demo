@@ -1,37 +1,9 @@
-version: '3'
-
 services:
-  # Temporal server (uses default sqlite for persistence)
   temporal:
     image: temporalio/temporal:latest
-    container_name: temporal-server
+    container_name: temporal-dev
+    command: ["server", "start-dev", "--ip", "0.0.0.0"]
     ports:
-      - "7233:7233"  # gRPC port
-      - "6933:6933"  # metrics port
-    environment:
-      - DB=sqlite
-      - SQLITE_PATH=/var/lib/temporal/default.db
-    volumes:
-      - temporal-data:/var/lib/temporal
-    networks:
-      - temporal-network
-
-  # Temporal UI for visual monitoring
-  temporal-ui:
-    image: temporalio/ui:latest
-    container_name: temporal-ui
-    ports:
-      - "8080:8080"  # UI access: http://localhost:8080
-    environment:
-      - TEMPORAL_ADDRESS=temporal:7233
-    depends_on:
-      - temporal
-    networks:
-      - temporal-network
-
-volumes:
-  temporal-data:
-
-networks:
-  temporal-network:
-    driver: bridge
+      - "7233:7233"   # gRPC
+      - "8233:8233"   # Web UI
+    restart: unless-stopped

@@ -13,7 +13,7 @@ docker-compose up
 Wait for both services to be healthy:
 ```
 ✓ temporal-server
-✓ temporal-ui at http://localhost:8080
+✓ temporal-ui at http://localhost:8233
 ```
 
 ### 2. Install Python Dependencies
@@ -32,7 +32,7 @@ Expected output:
 ```
 ✓ Worker started, listening on queue: charge-queue
 ✓ Temporal Server: http://localhost:7233
-✓ Temporal UI: http://localhost:8080
+✓ Temporal UI: http://localhost:8233
 ```
 
 ### 4. Terminal 2: Start a Workflow
@@ -104,7 +104,7 @@ A workflow is waiting 10 seconds before charging. You want to prove Temporal res
 - Temporal resumed the workflow at the correct point
 - Timer not "reset" — workflow waited for total 10 seconds
 - No double-charge occurs
-- Check UI: http://localhost:8080/namespaces/default/workflows
+- Check UI: http://localhost:8233/namespaces/default/workflows
 
 ### Why This is Impossible with Background Jobs
 
@@ -258,7 +258,7 @@ This auto-retries without manual logic.
 
 ## Monitoring in Temporal UI
 
-Open http://localhost:8080
+Open http://localhost:8233
 
 **See:**
 - Workflow executions (list + details)
