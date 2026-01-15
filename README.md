@@ -1,4 +1,4 @@
-# Temporal Python Demo: Why Temporal > Background Jobs
+# Temporal Python Demo
 
 A complete, runnable demo showing why Temporal is superior to traditional background job systems.
 

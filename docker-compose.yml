@@ -3,7 +3,7 @@ version: '3'
 services:
   # Temporal server (uses default sqlite for persistence)
   temporal:
-    image: temporaltech/temporal:latest
+    image: temporalio/temporal:latest
     container_name: temporal-server
     ports:
       - "7233:7233"  # gRPC port
@@ -18,7 +18,7 @@ services:
 
   # Temporal UI for visual monitoring
   temporal-ui:
-    image: temporaltech/ui:latest
+    image: temporalio/ui:latest
     container_name: temporal-ui
     ports:
       - "8080:8080"  # UI access: http://localhost:8080
