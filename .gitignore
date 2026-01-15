@@ -137,3 +137,9 @@ Thumbs.db
 # Local development
 local_config.py
 *.local
+
+# Temporal Demo - Project Specific
+charge_store.db
+*.db
+*.sqlite
+*.sqlite3

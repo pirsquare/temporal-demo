@@ -2,6 +2,7 @@
 Workflow definitions: orchestration logic that's durable and fault-tolerant.
 Workflows are replayed from history, not re-executed from the start.
 """
+import asyncio
 from datetime import timedelta
 from temporalio import workflow
 from temporalio.common import RetryPolicy
@@ -39,7 +40,7 @@ class ChargeWorkflow:
         # If worker crashes, Temporal remembers this sleep and resumes at exactly the right time
         # This is why Temporal is better than background jobs with time.sleep()
         workflow.logger.info(f"Sleeping for {wait_seconds} seconds...")
-        await workflow.sleep(timedelta(seconds=wait_seconds))
+        await asyncio.sleep(wait_seconds)
         
         workflow.logger.info(f"Sleep completed, now charging {customer_id}...")
         
@@ -56,9 +57,7 @@ class ChargeWorkflow:
         # Idempotency key = customer_id + amount, ensuring uniqueness per charge request
         result = await workflow.execute_activity(
             charge_customer,
-            customer_id,
-            amount,
-            f"{customer_id}:{amount}:{id(self)}",  # Unique idempotency key
+            args=(customer_id, amount, f"{customer_id}:{amount}:{id(self)}"),
             start_to_close_timeout=timedelta(minutes=5),  # Activity timeout
             retry_policy=retry_policy,
         )
